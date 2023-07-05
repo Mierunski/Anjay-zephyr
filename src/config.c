@@ -24,8 +24,10 @@
 #include <zephyr/kernel.h>
 #include <zephyr/logging/log.h>
 #include <zephyr/logging/log_ctrl.h>
+#ifdef CONFIG_ANJAY_ZEPHYR_SHELL
 #include <zephyr/shell/shell.h>
 #include <zephyr/shell/shell_uart.h>
+#endif // CONFIG_ANJAY_ZEPHYR_SHELL
 
 #include <zephyr/console/console.h>
 #include <zephyr/drivers/flash.h>
@@ -756,6 +758,8 @@ bool anjay_zephyr_config_is_use_persistence(void) {
         * !defined(CONFIG_ANJAY_ZEPHYR_FACTORY_PROVISIONING) \
         */
 
+#if defined(CONFIG_ANJAY_ZEPHYR_SHELL)
+
 #if defined(CONFIG_WIFI) || defined(CONFIG_ANJAY_ZEPHYR_GPS_NRF) \
         || !defined(CONFIG_ANJAY_ZEPHYR_FACTORY_PROVISIONING)
 static int string_validate(const struct shell *shell,
@@ -850,3 +854,43 @@ static int uint32_validate(const struct shell *shell,
 }
 #endif // defined(CONFIG_ANJAY_ZEPHYR_GPS_NRF) ||
        // !defined(CONFIG_ANJAY_ZEPHYR_FACTORY_PROVISIONING)
+
+#else // defined(CONFIG_ANJAY_ZEPHYR_SHELL)
+
+static int string_validate(const struct shell *shell,
+                           const char *value,
+                           size_t value_len,
+                           const struct anjay_zephyr_option *option) {
+        return 0;
+}
+
+static int flag_validate(const struct shell *shell,
+                         const char *value,
+                         size_t value_len,
+                         const struct anjay_zephyr_option *option) {
+        return 0;
+}
+
+static int psk_hex_validate(const struct shell *shell,
+                            const char *value,
+                            size_t value_len,
+                            const struct anjay_zephyr_option *option) {
+        return 0;
+}
+
+static int security_mode_validate(const struct shell *shell,
+                                  const char *value,
+                                  size_t value_len,
+                                  const struct anjay_zephyr_option *option) {
+        return 0;
+}
+
+static int uint32_validate(const struct shell *shell,
+                           const char *value,
+                           size_t value_len,
+                           const struct anjay_zephyr_option *option) {
+        return 0;
+}
+#endif // defined(CONFIG_ANJAY_ZEPHYR_SHELL)
+
+
