@@ -30,27 +30,6 @@
 #    define OPTION_KEY_SSID wifi_ssid
 #    define OPTION_KEY_PASSWORD wifi_password
 #endif // CONFIG_WIFI
-#ifndef CONFIG_ANJAY_ZEPHYR_FACTORY_PROVISIONING
-#    define URI_STORAGE_SIZE 129
-#    define EP_NAME_STORAGE_SIZE 65
-#    define PSK_IDENTITY_STORAGE_SIZE 65
-#    define PSK_KEY_STORAGE_SIZE 32
-#    define BOOTSTRAP_STORAGE_SIZE 1
-#    define SECURITY_MODE_STORAGE_SIZE 6
-
-#    define OPTION_KEY_URI uri
-#    define OPTION_KEY_EP_NAME endpoint
-#    define OPTION_KEY_LIFETIME lifetime
-#    define OPTION_KEY_PSK_IDENTITY psk_identity
-#    define OPTION_KEY_PSK psk
-#    define OPTION_KEY_PSK_HEX psk_hex
-#    define OPTION_KEY_BOOTSTRAP bootstrap
-#    define OPTION_KEY_SECURITY_MODE security_mode
-#    ifdef CONFIG_ANJAY_ZEPHYR_RUNTIME_CERT_CONFIG
-#        define OPTION_KEY_PUBLIC_CERT public_cert
-#        define OPTION_KEY_PRIVATE_KEY private_key
-#    endif // CONFIG_ANJAY_ZEPHYR_RUNTIME_CERT_CONFIG
-#endif     // CONFIG_ANJAY_ZEPHYR_FACTORY_PROVISIONING
 #ifdef CONFIG_ANJAY_ZEPHYR_GPS_NRF
 #    define OPTION_KEY_GPS_NRF_PRIO_MODE_TIMEOUT gps_prio_mode_timeout
 #    define OPTION_KEY_GPS_NRF_PRIO_MODE_COOLDOWN gps_prio_mode_cooldown
