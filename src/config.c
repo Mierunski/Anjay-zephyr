@@ -42,7 +42,7 @@
 #define SETTINGS_ROOT_NAME "anjay"
 #define SETTINGS_NAME(Name) SETTINGS_ROOT_NAME "/" AVS_QUOTE_MACRO(Name)
 
-#define EP_NAME_PREFIX "anjay-zephyr-demo"
+#define EP_NAME_PREFIX "urn:imei:"
 
 #define EOT_ASCII 4
 
@@ -61,7 +61,7 @@ const char *anjay_zephyr_config_default_ep_name(void) {
 
     if (!_anjay_zephyr_get_device_id(&id)) {
         (void) avs_simple_snprintf(ep_name, sizeof(ep_name),
-                                   EP_NAME_PREFIX "-%s", id.value);
+                                   EP_NAME_PREFIX "%s", id.value);
     } else {
         memcpy(ep_name, EP_NAME_PREFIX, sizeof(EP_NAME_PREFIX));
     }
@@ -414,6 +414,9 @@ void _anjay_zephyr_config_default_init(void) {
         assert(strlen(ep_name) < sizeof(app_config.ep_name_storage));
         strcpy(app_config.ep_name.value, ep_name);
         app_config.ep_name.length = strlen(ep_name);
+        app_config.ep_name.null_terminated = true;
+        app_config.psk_identity.value = app_config.ep_name_storage;
+        app_config.psk_identity.length = app_config.ep_name.length;
         app_config.ep_name.null_terminated = true;
 #        if defined(CONFIG_ANJAY_ZEPHYR_SECURITY_MODE_NOSEC)
         strcpy(app_config.security_mode.value, NOSEC_MODE);
